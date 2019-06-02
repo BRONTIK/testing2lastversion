@@ -1,5 +1,5 @@
 #include "digits_test.h"
-#include "c1n_tests.h"
+#include "c1n.h"
 #include "ch_tests.h"
 
 #include <gtest/gtest.h>
