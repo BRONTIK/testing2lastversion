@@ -5,5 +5,6 @@
 
 char path_c1n[MAXLEN];
 char path_rc[MAXLEN];
+char path_save[MAXLEN];
 
 #endif // PATH_H

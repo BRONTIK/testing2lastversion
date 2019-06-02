@@ -30,6 +30,7 @@ SOURCES += main.cpp \
     ../app/c1n.c \
     ../app/ch.c \
 	../app/rc.c \
+	../app/save.c \
     ../app/mwcrsr.c \
     ../app/text/append_line.c \
     ../app/text/delete_line.c \
