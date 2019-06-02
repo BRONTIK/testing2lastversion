@@ -29,12 +29,12 @@ TEST(c1n_test, test1) {
     c1n(txt);
     save(txt, path_c1n);
 
-    if((output = fopen(path_c1n, "r")) == nullptr){
+    if((output = fopen(path_c1n, "r")) ==NUL){
         printf("can not open file\n");
         FAIL();
     }
 
-    if((expected = fopen(ex, "r")) == NULL){
+    if((expected = fopen(ex, "r")) == NUL){
         printf("can not open file\n");
         FAIL();
     }
@@ -55,8 +55,8 @@ TEST(c1n_test, test1) {
     else{
 	
 	    //считываем символы
-        if(fgets(output_s, 255, output) == NULL){}
-        if(fgets(expected_s, 255, expected) == NULL){}
+        if(fgets(output_s, 255, output) == NUL){}
+        if(fgets(expected_s, 255, expected) == NUL){}
 	//проверка C-строк на равенство    
         ASSERT_STREQ(expected_s, output_s);
 	//закрываем файлы    
