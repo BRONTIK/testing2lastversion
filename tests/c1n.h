@@ -29,7 +29,7 @@ TEST(c1n_test, test1) {
     c1n(txt);
     save(txt, path_c1n);
 
-    if((output = fopen(path_c1n, "r")) == NULL){
+    if((output = fopen(path_c1n, "r")) == nullptr){
         printf("can not open file\n");
         FAIL();
     }
