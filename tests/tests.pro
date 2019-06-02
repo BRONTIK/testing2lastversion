@@ -19,7 +19,7 @@ HEADERS += ../app/common.h \
     ../app/text/_text.h \
     ../app/text/text.h \
     ch_tests.h \
-    c1n_tests.h \
+    c1n.h \
     digits_tests.h \
     shared.h \
 	path.h
