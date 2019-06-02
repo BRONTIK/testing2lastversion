@@ -29,6 +29,7 @@ SOURCES += main.cpp \
     ../app/digitlines.c \
     ../app/c1n.c \
     ../app/ch.c \
+	../app/rc.c \
     ../app/mwcrsr.c \
     ../app/text/append_line.c \
     ../app/text/delete_line.c \
