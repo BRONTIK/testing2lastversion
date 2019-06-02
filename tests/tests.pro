@@ -21,7 +21,7 @@ HEADERS += ../app/common.h \
     ch_tests.h \
     c1n_tests.h \
     digits_tests.h \
-    shared.h
+    shared.h \
 	path.h
 
 SOURCES += main.cpp \
