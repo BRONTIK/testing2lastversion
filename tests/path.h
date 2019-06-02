@@ -3,6 +3,6 @@
 
 #define MAXLEN 255
 
-char c1n_path[MAXLEN];
+char path_c1n[MAXLEN];
 
 #endif // PATH_H
