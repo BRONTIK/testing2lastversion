@@ -18,10 +18,10 @@ TEST(c1n_test, test1) {
     
     strcpy(path_c1n, ou);
 
-    FILE *output;
-    FILE *expected;
-    char output_s[255] = { '\0' };
-    char expected_s[255] = { '\0' };
+    FILE *out;
+    FILE *exp;
+    char out_s[255] = { '\0' };
+    char exp_s[255] = { '\0' };
 
     text txt = create_text();
     load(txt, in);
@@ -29,25 +29,25 @@ TEST(c1n_test, test1) {
     c1n(txt);
     save(txt, path_c1n);
 
-    if((output = fopen(path_c1n, "r")) ==0){
+    if((out = fopen(path_c1n, "r")) ==0){
         printf("can not open file\n");
         FAIL();
     }
 
-    if((expected = fopen(ex, "r")) ==0){
+    if((exp = fopen(ex, "r")) ==0){
         printf("can not open file\n");
         FAIL();
     }
 
     //поместить внутренний указатель в конец файла
-    fseek(output, 0, SEEK_END);
+    fseek(out, 0, SEEK_END);
     //вернуть текущее положение внутреннего указателя
-    long output_position = ftell(output);
+    long output_position = ftell(out);
 	
     //поместить внутренний указатель в конец файла	
-    fseek(expected, 0, SEEK_END);
+    fseek(exp, 0, SEEK_END);
     //вернуть текущее положение внутреннего указателя
-    long expected_position = ftell(expected);
+    long expected_position = ftell(exp);
     if(!expected_position && !output_position){
         printf("Files are empty\n");
         SUCCEED();
@@ -55,13 +55,13 @@ TEST(c1n_test, test1) {
     else{
 	
 	    //считываем символы
-        if(fgets(output_s, 255, output) ==0){}
-        if(fgets(expected_s, 255, expected) ==0){}
+        if(fgets(out_s, 255, out) ==0){}
+        if(fgets(exp_s, 255, exp) ==0){}
 	//проверка C-строк на равенство    
-        ASSERT_STREQ(expected_s, output_s);
+        ASSERT_STREQ(exp_s, out_s);
 	//закрываем файлы    
-        fclose(output);
-        fclose(expected);
+        fclose(out);
+        fclose(exp);
     }
 }
 #endif // C1N_TESTS_H
