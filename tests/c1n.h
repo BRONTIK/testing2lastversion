@@ -27,7 +27,7 @@ TEST(c1n_test, test1) {
     load(txt, in);
     
     c1n(txt);
-    save(txt, path_rc);
+    //save(txt, path_rc);
 
     if((output = fopen(path_c1n, "r")) == NULL){
         printf("can not open file\n");
