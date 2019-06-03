@@ -1,7 +1,7 @@
 /**
  * c1n.c -- для перемещения первой строки в конец текста
  *
- * Copyright (c) 2018, Воеводин Павел <voevodin@petrsu.ru>
+ * Copyright (c) 2018, Voevodin Pavel <voevodin@petrsu.ru>
  *
  * This code is licensed under a MIT-style license.
  */
