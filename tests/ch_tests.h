@@ -1,213 +1,181 @@
-#ifndef CH_TEST_H_
-#define CH_TEST_H_
-#include "shared.h"
+#ifndef CH_H
+#define CH_H
+
+#include <gtest/gtest.h>
 
 extern "C" {
 #include "common.h"
+#include "stdio.h"
+#include "path.h"
 }
 
-TEST(ch_test, test1) {
-    /*
-        Open output file
-    */
-    FILE *outputFile;
-    TRAVIS ? outputFile = fopen("tests/output/output9.txt", "wb") : outputFile = fopen("D:/testing2/tests/output/output9.txt", "wb");
-    if (outputFile == NULL) {
-        printf("Cannot open file for output");
-        FAIL();
-    }
-    int oldstdOut = changeStream(outputFile);
 
-    /*
-        Load input data
-    */
+TEST(ch_test1, test1) {
+
+    char in[] = "tests/input/input_ch_1.txt";
+    char ou[] = "tests/output/output_ch_1.txt";
+    char ex[] = "tests/expected/expected_ch_1.txt";
+    
+    strcpy(path_ch, ou);
+
+    FILE *out;
+    FILE *exp;
+    char out_s[255] = { '\0' };
+    char exp_s[255] = { '\0' };
 
     text txt = create_text();
-    char inFile[MAXLINE];
-    TRAVIS ? strncpy(inFile, "tests/input/input9.txt", MAXLINE) : strncpy(inFile, "D:/testing2/tests/input/input9.txt", MAXLINE);
-    load(txt, inFile);
+    load(txt, in);
+    mwcrsr(txt, 1, 2);
+    ch(txt);
+    save(txt, path_ch);
 
-    /*
-        Run test function
-    */
-
-   mwcrsr(txt, 1, 2);
-   ch(txt);
-   show(txt);
-
-    /*
-        Close output file
-    */
-
-    returnStream(outputFile, oldstdOut);
-
-    /*
-        Execute test
-    */
-
-    FILE *expectedData;
-    TRAVIS ? expectedData = fopen("tests/expected/expected9.txt", "r") : expectedData = fopen("D:/testing2/tests/expected/expected9.txt", "r");
-    FILE *outputData;
-    TRAVIS ? outputData = fopen("tests/output/output9.txt", "r") : outputData = fopen("D:/testing2/tests/output/output9.txt", "r");
-
-    if (executeTest(expectedData, outputData) == 1) {
-        SUCCEED();
-    } else {
+    if((out = fopen(path_ch, "r")) ==0){
+        printf("can not open file\n");
         FAIL();
+    }
+
+    if((exp = fopen(ex, "r")) ==0){
+        printf("can not open file\n");
+        FAIL();
+    }
+
+    //поместить внутренний указатель в конец файла
+    fseek(out, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long output_position = ftell(out);
+	
+    //поместить внутренний указатель в конец файла	
+    fseek(exp, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long expected_position = ftell(exp);
+	
+	if(!expected_position && !output_position){
+        printf("Files are empty\n");
+        SUCCEED();
+    }
+    else{
+	
+	    //считываем символы
+        if(fgets(out_s, 255, out) ==0){}
+        if(fgets(exp_s, 255, exp) ==0){}
+	//проверка C-строк на равенство    
+        ASSERT_STREQ(exp_s, out_s);
+	//закрываем файлы    
+        fclose(out);
+        fclose(exp);
     }
 }
 
-TEST(ch_test, test2) {
-    /*
-        Open output file
-    */
-    FILE *outputFile;
-    TRAVIS ? outputFile = fopen("tests/output/output10.txt", "wb") : outputFile = fopen("D:/testing2/tests/output/output10.txt", "wb");
-    if (outputFile == NULL) {
-        printf("Cannot open file for output");
-        FAIL();
-    }
-    int oldstdOut = changeStream(outputFile);
+TEST(ch_test2, test2) {
 
-    /*
-        Load input data
-    */
+    char in[] = "tests/input/input_ch_2.txt";
+    char ou[] = "tests/output/output_ch_2.txt";
+    char ex[] = "tests/expected/expected_ch_2.txt";
+    
+    strcpy(path_ch, ou);
+
+    FILE *out;
+    FILE *exp;
+    char out_s[255] = { '\0' };
+    char exp_s[255] = { '\0' };
 
     text txt = create_text();
-    char inFile[MAXLINE];
-    TRAVIS ? strncpy(inFile, "tests/input/input10.txt", MAXLINE) : strncpy(inFile, "D:/testing2/tests/input/input10.txt", MAXLINE);
-    load(txt, inFile);
+    load(txt, in);
+    mwcrsr(txt, 2, 7);
+    ch(txt);
+    save(txt, path_ch);
 
-    /*
-        Run test function
-    */
-
-   mwcrsr(txt, 1, 6);
-   ch(txt);
-   show(txt);
-
-    /*
-        Close output file
-    */
-
-    returnStream(outputFile, oldstdOut);
-
-    /*
-        Execute test
-    */
-
-    FILE *expectedData;
-    TRAVIS ? expectedData = fopen("tests/expected/expected10.txt", "r") : expectedData = fopen("D:/testing2/tests/expected/expected10.txt", "r");
-    FILE *outputData;
-    TRAVIS ? outputData = fopen("tests/output/output10.txt", "r") : outputData = fopen("D:/testing2/tests/output/output10.txt", "r");
-
-    if (executeTest(expectedData, outputData) == 1) {
-        SUCCEED();
-    } else {
+    if((out = fopen(path_ch, "r")) ==0){
+        printf("can not open file\n");
         FAIL();
+    }
+
+    if((exp = fopen(ex, "r")) ==0){
+        printf("can not open file\n");
+        FAIL();
+    }
+
+    //поместить внутренний указатель в конец файла
+    fseek(out, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long output_position = ftell(out);
+	
+    //поместить внутренний указатель в конец файла	
+    fseek(exp, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long expected_position = ftell(exp);
+	
+	if(!expected_position && !output_position){
+        printf("Files are empty\n");
+        SUCCEED();
+    }
+    else{
+	
+	    //считываем символы
+        if(fgets(out_s, 255, out) ==0){}
+        if(fgets(exp_s, 255, exp) ==0){}
+	//проверка C-строк на равенство    
+        ASSERT_STREQ(exp_s, out_s);
+	//закрываем файлы    
+        fclose(out);
+        fclose(exp);
     }
 }
 
-TEST(ch_test, test3) {
-    /*
-        Open output file
-    */
-    FILE *outputFile;
-    TRAVIS ? outputFile = fopen("tests/output/output11.txt", "wb") : outputFile = fopen("D:/testing2/tests/output/output11.txt", "wb");
-    if (outputFile == NULL) {
-        printf("Cannot open file for output");
-        FAIL();
-    }
-    int oldstdOut = changeStream(outputFile);
+TEST(ch_test3, test3) {
 
-    /*
-        Load input data
-    */
+    char in[] = "tests/input/input_ch_3.txt";
+    char ou[] = "tests/output/output_ch_3.txt";
+    char ex[] = "tests/expected/expected_ch_3.txt";
+    
+    strcpy(path_ch, ou);
+
+    FILE *out;
+    FILE *exp;
+    char out_s[255] = { '\0' };
+    char exp_s[255] = { '\0' };
 
     text txt = create_text();
-    char inFile[MAXLINE];
-    TRAVIS ? strncpy(inFile, "tests/input/input11.txt", MAXLINE) : strncpy(inFile, "D:/testing2/tests/input/input11.txt", MAXLINE);
-    load(txt, inFile);
+    load(txt, in);
+    mwcrsr(txt, 1, 2);
+    ch(txt);
+    save(txt, path_ch);
 
-    /*
-        Run test function
-    */
-
-   mwcrsr(txt, 2, 5);
-   ch(txt);
-   show(txt);
-
-    /*
-        Close output file
-    */
-
-    returnStream(outputFile, oldstdOut);
-
-    /*
-        Execute test
-    */
-
-    FILE *expectedData;
-    TRAVIS ? expectedData = fopen("tests/expected/expected11.txt", "r") : expectedData = fopen("D:/testing2/tests/expected/expected11.txt", "r");
-    FILE *outputData;
-    TRAVIS ? outputData = fopen("tests/output/output11.txt", "r") : outputData = fopen("D:/testing2/tests/output/output11.txt", "r");
-
-    if (executeTest(expectedData, outputData) == 1) {
-        SUCCEED();
-    } else {
+    if((out = fopen(path_ch, "r")) ==0){
+        printf("can not open file\n");
         FAIL();
+    }
+
+    if((exp = fopen(ex, "r")) ==0){
+        printf("can not open file\n");
+        FAIL();
+    }
+
+    //поместить внутренний указатель в конец файла
+    fseek(out, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long output_position = ftell(out);
+	
+    //поместить внутренний указатель в конец файла	
+    fseek(exp, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long expected_position = ftell(exp);
+	
+	if(!expected_position && !output_position){
+        printf("Files are empty\n");
+        SUCCEED();
+    }
+    else{
+	
+	    //считываем символы
+        if(fgets(out_s, 255, out) ==0){}
+        if(fgets(exp_s, 255, exp) ==0){}
+	//проверка C-строк на равенство    
+        ASSERT_STREQ(exp_s, out_s);
+	//закрываем файлы    
+        fclose(out);
+        fclose(exp);
     }
 }
 
-TEST(ch_test, test4) {
-    /*
-        Open output file
-    */
-    FILE *outputFile;
-    TRAVIS ? outputFile = fopen("tests/output/output8empty.txt", "wb") : outputFile = fopen("D:/testing2/tests/output/output8empty.txt", "wb");
-    if (outputFile == NULL) {
-        printf("Cannot open file for output");
-        FAIL();
-    }
-    int oldstdOut = changeStream(outputFile);
-
-    /*
-        Load input data
-    */
-
-    text txt = create_text();
-    char inFile[MAXLINE];
-    TRAVIS ? strncpy(inFile, "tests/input/input8empty.txt", MAXLINE) : strncpy(inFile, "D:/testing2/tests/input/input8empty.txt", MAXLINE);
-    load(txt, inFile);
-
-    /*
-        Run test function
-    */
-
-   mwcrsr(txt, 2, 5);
-   ch(txt);
-   show(txt);
-
-    /*
-        Close output file
-    */
-
-    returnStream(outputFile, oldstdOut);
-
-    /*
-        Execute test
-    */
-
-    FILE *expectedData;
-    TRAVIS ? expectedData = fopen("tests/expected/expected8empty.txt", "r") : expectedData = fopen("D:/testing2/tests/expected/expected8empty.txt", "r");
-    FILE *outputData;
-    TRAVIS ? outputData = fopen("tests/output/output8empty.txt", "r") : outputData = fopen("D:/testing2/tests/output/output8empty.txt", "r");
-
-    if (executeTest(expectedData, outputData) == 1) {
-        SUCCEED();
-    } else {
-        FAIL();
-    }
-}
-
-#endif // CH_TEST_H_
+#endif // CH_H
