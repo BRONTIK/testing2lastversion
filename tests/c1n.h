@@ -25,7 +25,7 @@ TEST(c1n_test, test1) {
 
     text txt = create_text();
     load(txt, in);
-    
+    mwcrsr(txt, 1, 1);
     c1n(txt);
     save(txt, path_c1n);
 
