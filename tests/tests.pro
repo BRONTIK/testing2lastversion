@@ -21,7 +21,7 @@ HEADERS += ../app/common.h \
     ch.h \
     save.h \
     c1n.h \
-    digits_tests.h \
+    showdigits.h \
     shared.h \
 	path.h
 

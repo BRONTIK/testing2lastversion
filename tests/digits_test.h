@@ -1,257 +1,180 @@
-#ifndef DIGITS_TEST_H
-#define DIGITS_TEST_H
-#include "shared.h"
+#ifndef SHOWDIGITS_H
+#define SHOWDIGITS_H
+
+#include <gtest/gtest.h>
 
 extern "C" {
 #include "common.h"
+#include "stdio.h"
+#include "path.h"
 }
 
 
-TEST(digitsTest, test1) {
-    /*
-        Open output file
-    */
-    FILE *outputFile;
-    TRAVIS ? outputFile = fopen("tests/output/output1d.txt", "wb") : outputFile = fopen("D:/testing2/tests/output/output1d.txt", "wb");
-    if (outputFile == NULL) {
-        printf("Cannot open file for output");
-        FAIL();
-    }
-    int oldstdOut = changeStream(outputFile);
+TEST(digits_test1, test1) {
 
-    /*
-        Load input data
-    */
+    char in[] = "tests/input/input_showdigits_1.txt";
+    char ou[] = "tests/output/output_showdigits_1.txt";
+    char ex[] = "tests/expected/expected_showdigits_1.txt";
+    
+    strcpy(path_showdigits, ou);
+
+    FILE *out;
+    FILE *exp;
+    char out_s[255] = { '\0' };
+    char exp_s[255] = { '\0' };
 
     text txt = create_text();
-    char inFile[MAXLINE];
-    TRAVIS ? strncpy(inFile, "tests/input/input1d.txt", MAXLINE) : strncpy(inFile, "D:/testing2/tests/input/input1d.txt", MAXLINE);
-    //TRAVIS ? strcpy(inFile, "tests/input/input1d.txt") : strcpy(inFile, "D:/testing2/tests/input/input1d.txt");
-    load(txt, inFile);
+    load(txt, in);
+    mwcrsr(txt, 1, 1);
+    ch(txt);
+    save(txt, path_digits);
 
-    /*
-        Run test function
-    */
-
-    showlineswithdigits(txt);
-
-    /*
-        Close output file
-    */
-
-    returnStream(outputFile, oldstdOut);
-
-    /*
-        Execute test
-    */
-
-    FILE *expectedData;
-    TRAVIS ? expectedData = fopen("tests/expected/expected1d.txt", "r") : expectedData = fopen("D:/testing2/tests/expected/expected1d.txt", "r");
-    FILE *outputData;
-    TRAVIS ? outputData = fopen("tests/output/output1d.txt", "r") : outputData = fopen("D:/testing2/tests/output/output1d.txt", "r");
-
-    if (executeTest(expectedData, outputData) == 1) {
-        SUCCEED();
-    } else {
+    if((out = fopen(path_digits, "r")) ==0){
+        printf("can not open file\n");
         FAIL();
+    }
+
+    if((exp = fopen(ex, "r")) ==0){
+        printf("can not open file\n");
+        FAIL();
+    }
+
+    //поместить внутренний указатель в конец файла
+    fseek(out, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long output_position = ftell(out);
+	
+    //поместить внутренний указатель в конец файла	
+    fseek(exp, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long expected_position = ftell(exp);
+	
+	if(!expected_position && !output_position){
+        printf("Files are empty\n");
+        SUCCEED();
+    }
+    else{
+	
+	    //считываем символы
+        if(fgets(out_s, 255, out) ==0){}
+        if(fgets(exp_s, 255, exp) ==0){}
+	//проверка C-строк на равенство    
+        ASSERT_STREQ(exp_s, out_s);
+	//закрываем файлы    
+        fclose(out);
+        fclose(exp);
     }
 }
 
-TEST(digitsTest, test2) {
-    /*
-        Open output file
-    */
-    FILE *outputFile;
-    TRAVIS ? outputFile = fopen("tests/output/output2d.txt", "wb") : outputFile = fopen("D:/testing2/tests/output/output2d.txt", "wb");
-    if (outputFile == NULL) {
-        printf("Cannot open file for output");
-        FAIL();
-    }
-    int oldstdOut = changeStream(outputFile);
+TEST(digits_test2, test2) {
 
-    /*
-        Load input data
-    */
+    char in[] = "tests/input/input_showdigits_2.txt";
+    char ou[] = "tests/output/output_showdigits_2.txt";
+    char ex[] = "tests/expected/expected_showdigits_2.txt";
+    
+    strcpy(path_showdigits, ou);
+
+    FILE *out;
+    FILE *exp;
+    char out_s[255] = { '\0' };
+    char exp_s[255] = { '\0' };
 
     text txt = create_text();
-    char inFile[MAXLINE];
-    TRAVIS ? strncpy(inFile, "tests/input/input2d.txt", MAXLINE) : strncpy(inFile, "D:/testing2/tests/input/input2d.txt", MAXLINE);
-    load(txt, inFile);
+    load(txt, in);
+    mwcrsr(txt, 1, 1);
+    ch(txt);
+    save(txt, path_digits);
 
-    /*
-        Run test function
-    */
-
-    showlineswithdigits(txt);
-
-    /*
-        Close output file
-    */
-
-    returnStream(outputFile, oldstdOut);
-
-    /*
-        Execute test
-    */
-
-    FILE *expectedData;
-    TRAVIS ? expectedData = fopen("tests/expected/expected2d.txt", "r") : expectedData = fopen("D:/testing2/tests/expected/expected2d.txt", "r");
-    FILE *outputData;
-    TRAVIS ? outputData = fopen("tests/output/output2d.txt", "r") : outputData = fopen("D:/testing2/tests/output/output2d.txt", "r");
-
-    if (executeTest(expectedData, outputData) == 1) {
-        SUCCEED();
-    } else {
+    if((out = fopen(path_digits, "r")) ==0){
+        printf("can not open file\n");
         FAIL();
+    }
+
+    if((exp = fopen(ex, "r")) ==0){
+        printf("can not open file\n");
+        FAIL();
+    }
+
+    //поместить внутренний указатель в конец файла
+    fseek(out, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long output_position = ftell(out);
+	
+    //поместить внутренний указатель в конец файла	
+    fseek(exp, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long expected_position = ftell(exp);
+	
+	if(!expected_position && !output_position){
+        printf("Files are empty\n");
+        SUCCEED();
+    }
+    else{
+	
+	    //считываем символы
+        if(fgets(out_s, 255, out) ==0){}
+        if(fgets(exp_s, 255, exp) ==0){}
+	//проверка C-строк на равенство    
+        ASSERT_STREQ(exp_s, out_s);
+	//закрываем файлы    
+        fclose(out);
+        fclose(exp);
     }
 }
 
-TEST(digitsTest, test3) {
-    /*
-        Open output file
-    */
-    FILE *outputFile;
-    TRAVIS ? outputFile = fopen("tests/output/output3d.txt", "wb") : outputFile = fopen("D:/testing2/tests/output/output3d.txt", "wb");
-    if (outputFile == NULL) {
-        printf("Cannot open file for output");
-        FAIL();
-    }
-    int oldstdOut = changeStream(outputFile);
+TEST(digits_test3, test3) {
 
-    /*
-        Load input data
-    */
+    char in[] = "tests/input/input_showdigits_3.txt";
+    char ou[] = "tests/output/output_showdigits_3.txt";
+    char ex[] = "tests/expected/expected_showdigits_3.txt";
+    
+    strcpy(path_showdigits, ou);
+
+    FILE *out;
+    FILE *exp;
+    char out_s[255] = { '\0' };
+    char exp_s[255] = { '\0' };
 
     text txt = create_text();
-    char inFile[MAXLINE];
-    TRAVIS ? strncpy(inFile, "tests/input/input3d.txt", MAXLINE) : strncpy(inFile, "D:/testing2/tests/input/input3d.txt", MAXLINE);
-    load(txt, inFile);
+    load(txt, in);
+    mwcrsr(txt, 1, 1);
+    ch(txt);
+    save(txt, path_digits);
 
-    /*
-        Run test function
-    */
-
-    showlineswithdigits(txt);
-
-    /*
-        Close output file
-    */
-
-    returnStream(outputFile, oldstdOut);
-
-    /*
-        Execute test
-    */
-
-    FILE *expectedData;
-    TRAVIS ? expectedData = fopen("tests/expected/expected3d.txt", "r") : expectedData = fopen("D:/testing2/tests/expected/expected3d.txt", "r");
-    FILE *outputData;
-    TRAVIS ? outputData = fopen("tests/output/output3d.txt", "r") : outputData = fopen("D:/testing2/tests/output/output3d.txt", "r");
-
-    if (executeTest(expectedData, outputData) == 1) {
-        SUCCEED();
-    } else {
+    if((out = fopen(path_digits, "r")) ==0){
+        printf("can not open file\n");
         FAIL();
+    }
+
+    if((exp = fopen(ex, "r")) ==0){
+        printf("can not open file\n");
+        FAIL();
+    }
+
+    //поместить внутренний указатель в конец файла
+    fseek(out, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long output_position = ftell(out);
+	
+    //поместить внутренний указатель в конец файла	
+    fseek(exp, 0, SEEK_END);
+    //вернуть текущее положение внутреннего указателя
+    long expected_position = ftell(exp);
+	
+	if(!expected_position && !output_position){
+        printf("Files are empty\n");
+        SUCCEED();
+    }
+    else{
+	
+	    //считываем символы
+        if(fgets(out_s, 255, out) ==0){}
+        if(fgets(exp_s, 255, exp) ==0){}
+	//проверка C-строк на равенство    
+        ASSERT_STREQ(exp_s, out_s);
+	//закрываем файлы    
+        fclose(out);
+        fclose(exp);
     }
 }
-
-TEST(digitsTest, test4) {
-    /*
-        Open output file
-    */
-    FILE *outputFile;
-    TRAVIS ? outputFile = fopen("tests/output/output4d.txt", "wb") : outputFile = fopen("D:/testing2/tests/output/output4d.txt", "wb");
-    if (outputFile == NULL) {
-        printf("Cannot open file for output");
-        FAIL();
-    }
-    int oldstdOut = changeStream(outputFile);
-
-    /*
-        Load input data
-    */
-
-    text txt = create_text();
-    char inFile[MAXLINE];
-    TRAVIS ? strncpy(inFile, "tests/input/input4d.txt", MAXLINE) : strncpy(inFile, "D:/testing2/tests/input/input4d.txt", MAXLINE);
-    load(txt, inFile);
-
-    /*
-        Run test function
-    */
-
-    showlineswithdigits(txt);
-
-    /*
-        Close output file
-    */
-
-    returnStream(outputFile, oldstdOut);
-
-    /*
-        Execute test
-    */
-
-    FILE *expectedData;
-    TRAVIS ? expectedData = fopen("tests/expected/expected4d.txt", "r") : expectedData = fopen("D:/testing2/tests/expected/expected4d.txt", "r");
-    FILE *outputData;
-    TRAVIS ? outputData = fopen("tests/output/output4d.txt", "r") : outputData = fopen("D:/testing2/tests/output/output4d.txt", "r");
-
-    if (executeTest(expectedData, outputData) == 1) {
-        SUCCEED();
-    } else {
-        FAIL();
-    }
-}
-
-TEST(digitsTest, test5) {
-    /*
-        Open output file
-    */
-    FILE *outputFile;
-    TRAVIS ? outputFile = fopen("tests/output/output5d.txt", "wb") : outputFile = fopen("D:/testing2/tests/output/output5d.txt", "wb");
-    if (outputFile == NULL) {
-        printf("Cannot open file for output");
-        FAIL();
-    }
-    int oldstdOut = changeStream(outputFile);
-
-    /*
-        Load input data
-    */
-
-    text txt = create_text();
-    char inFile[MAXLINE];
-    TRAVIS ? strncpy(inFile, "tests/input/input5d.txt", MAXLINE) : strncpy(inFile, "D:/testing2/tests/input/input5d.txt", MAXLINE);
-    load(txt, inFile);
-
-    /*
-        Run test function
-    */
-
-    showlineswithdigits(txt);
-
-    /*
-        Close output file
-    */
-
-    returnStream(outputFile, oldstdOut);
-
-    /*
-        Execute test
-    */
-
-    FILE *expectedData;
-    TRAVIS ? expectedData = fopen("tests/expected/expected5d.txt", "r") : expectedData = fopen("D:/testing2/tests/expected/expected5d.txt", "r");
-    FILE *outputData;
-    TRAVIS ? outputData = fopen("tests/output/output5d.txt", "r") : outputData = fopen("D:/testing2/tests/output/output5d.txt", "r");
-
-    if (executeTest(expectedData, outputData) == 1) {
-        SUCCEED();
-    } else {
-        FAIL();
-    }
-}
-
-
-#endif // DIGITS_TEST_H
+#endif // SHOWDIGITSH_H
