@@ -12,9 +12,9 @@ extern "C" {
 
 TEST(test_save1, test1) {
 
-    char in[] = "testing22/tests/input/input_save_1";
-    char ou[] = "testing22/tests/output/output_save_1";
-    char ex[] = "testing22/tests/expected/expected_save_1";
+    char in[] = "testing2lastversion/tests/input/input_save_1";
+    char ou[] = "testing2lastversion/tests/output/output_save_1";
+    char ex[] = "testing2lastversion/tests/expected/expected_save_1";
     
 	//копируем строку
 	strcpy(save_path, ou);
@@ -43,6 +43,7 @@ TEST(test_save1, test1) {
     fseek(expected, 0, SEEK_END);
     //вернуть текущее положение внутреннего указателя
     long expected_position = ftell(expected);
+	
     if(!expected_position && !output_position){
         printf("Files are empty\n");
         SUCCEED();
