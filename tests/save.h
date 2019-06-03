@@ -17,7 +17,7 @@ TEST(test_save1, test1) {
     char ex[] = "testing2lastversion/tests/expected/expected_save_1";
     
 	//копируем строку
-	strcpy(save_path, ou);
+	strcpy(past_save, ou);
     FILE *output;
 	char output_s[255] = { '\0' };
 	
@@ -25,7 +25,7 @@ TEST(test_save1, test1) {
     char expected_s[255] = { '\0' };
     text txt = create_text();
     load(txt, in);
-    save(txt, save_path);
+    save(txt, path_save);
     if((output = fopen(path_save, "r")) == NULL){
         printf("can not open file\n");
         FAIL();
