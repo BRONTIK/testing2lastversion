@@ -27,9 +27,9 @@ TEST(digits_test1, test1) {
     load(txt, in);
     mwcrsr(txt, 1, 1);
     ch(txt);
-    save(txt, path_digits);
+    save(txt, path_showdigits);
 
-    if((out = fopen(path_digits, "r")) ==0){
+    if((out = fopen(path_showdigits, "r")) ==0){
         printf("can not open file\n");
         FAIL();
     }
