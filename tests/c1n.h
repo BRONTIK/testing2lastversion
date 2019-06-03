@@ -12,9 +12,9 @@ extern "C" {
 
 TEST(c1n_test, test1) {
 
-    char in[] = "../../tests/input/input_c1n_1";
-    char ou[] = "../../tests/output/output_c1n_1";
-    char ex[] = "../../tests/expected/expected_c1n_1";
+    char in[] = "../../tests/input/input_c1n_1.txt";
+    char ou[] = "../../tests/output/output_c1n_1.txt";
+    char ex[] = "../../tests/expected/expected_c1n_1.txt";
     
     strcpy(path_c1n, ou);
 
