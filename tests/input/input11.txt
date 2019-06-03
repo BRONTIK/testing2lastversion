@@ -1,3 +1,0 @@
-line1: heeee
-line2: haaaa
-line3: hoooo
