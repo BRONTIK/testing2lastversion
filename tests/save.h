@@ -16,13 +16,15 @@ TEST(test_save1, test1) {
     char ou[] = "tests/output/output_save_1.txt";
     char ex[] = "tests/expected/expected_save_1.txt";
     
-	//копируем строку
-	strcpy(path_save, ou);
+    //копируем строку
+    strcpy(path_save, ou);
+	
     FILE *output;
-	char output_s[255] = { '\0' };
+    char output_s[255] = { '\0' };
 	
     FILE *expected;
     char expected_s[255] = { '\0' };
+	
     text txt = create_text();
     load(txt, in);
     save(txt, path_save);
