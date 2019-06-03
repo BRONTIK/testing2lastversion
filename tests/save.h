@@ -12,9 +12,9 @@ extern "C" {
 
 TEST(test_save1, test1) {
 
-    char in[] = "testing2lastversion/tests/input/input_save_1";
-    char ou[] = "testing2lastversion/tests/output/output_save_1";
-    char ex[] = "testing2lastversion/tests/expected/expected_save_1";
+    char in[] = "../../testing2lastversion/tests/input/input_save_1";
+    char ou[] = "../../testing2lastversion/tests/output/output_save_1";
+    char ex[] = "../../testing2lastversion/tests/expected/expected_save_1";
     
 	//копируем строку
 	strcpy(path_save, ou);
