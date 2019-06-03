@@ -22,15 +22,13 @@ HEADERS += ../app/common.h \
     save.h \
     c1n.h \
     showdigits.h \
-    shared.h \
-	path.h
+    path.h
 
 SOURCES += main.cpp \
     ../app/load.c \
     ../app/digitlines.c \
     ../app/c1n.c \
     ../app/ch.c \
-	../app/rc.c \
 	../app/save.c \
     ../app/mwcrsr.c \
     ../app/text/append_line.c \
