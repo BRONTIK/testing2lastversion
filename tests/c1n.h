@@ -48,7 +48,8 @@ TEST(c1n_test, test1) {
     fseek(exp, 0, SEEK_END);
     //вернуть текущее положение внутреннего указателя
     long expected_position = ftell(exp);
-    if(!expected_position && !output_position){
+	
+	if(!expected_position && !output_position){
         printf("Files are empty\n");
         SUCCEED();
     }
