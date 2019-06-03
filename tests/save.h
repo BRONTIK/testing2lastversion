@@ -17,7 +17,7 @@ TEST(test_save1, test1) {
     char ex[] = "testing2lastversion/tests/expected/expected_save_1";
     
 	//копируем строку
-	strcpy(past_save, ou);
+	strcpy(path_save, ou);
     FILE *output;
 	char output_s[255] = { '\0' };
 	
