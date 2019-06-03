@@ -6,7 +6,6 @@ CONFIG -= qt
 SOURCES += editor.c \
     load.c \
     show.c \
-	rc.c \
 	save.c \
     mwcrsr.c \
     ch.c \
